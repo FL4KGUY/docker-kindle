@@ -1,10 +1,26 @@
 version: "3"
 services:
   kindle:
-    build: .
+    image: predkambrij/kindle:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ARG_UID: ${ARG_UID}
+        ARG_GID: ${ARG_GID}
+        ARG_USER: ${ARG_USER}
     environment:
-      - "DISPLAY=${DISPLAY}"
+      - DISPLAY
+      - XDG_RUNTIME_DIR=/run/user/${ARG_UID}
+      - LC_CTYPE=en_US.UTF8
+    network_mode: host
+    privileged: true
     volumes:
+      - kindle_home:/home/${ARG_USER}
+      - /dev/shm:/dev/shm
       - /tmp/.X11-unix:/tmp/.X11-unix
-      - ./wineuser:/home/wineuser
-    command: wine '/home/wineuser/.wine/drive_c/Program Files (x86)/Amazon/Kindle/Kindle.exe'
+      - ~/.Xauthority:/home/user/.Xauthority
+      - /etc/localtime:/etc/localtime:ro
+      - /run/user/${ARG_UID}:/run/user/${ARG_UID}
+volumes:
+  kindle_home:

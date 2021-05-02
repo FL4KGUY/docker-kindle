@@ -7,24 +7,28 @@ Kindle in Docker.
 Clone the repository and build the image.
 
 ```sh
-git clone git@github.com:igjit/docker-kindle.git
+git clone git@github.com:predkambrij/docker-kindle.git
 cd docker-kindle
 docker-compose build
 ```
 
-Install Kindle and fonts you need with `winetricks`.
+Make it possible to connect to X server
 
 ```sh
 xhost +
-docker-compose run --rm kindle winetricks cjkfonts kindle
 ```
 
-Select the Amazon site and sign in.
-
-![Screenshot](image/sign-in.png)
-
-After installation, launch Kindle with:
+Launch Kindle with:
 
 ```sh
-docker-compose run --rm kindle
+docker-compose up -d
 ```
+
+Note:
+
+- first time you'll launch the container, it'll prompt you to install Mono for .NET and Gecko package (twice)
+- next time it'll open Kindle
+
+Known issues:
+
+- highlights aren't working

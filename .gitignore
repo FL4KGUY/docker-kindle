@@ -1,2 +1,1 @@
-/wineuser/*
-!/wineuser/.keep
+.env
