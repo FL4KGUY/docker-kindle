@@ -9,6 +9,7 @@ Clone the repository and build the image.
 ```sh
 git clone git@github.com:predkambrij/docker-kindle.git
 cd docker-kindle
+./genenv.sh
 docker-compose build
 ```
 
